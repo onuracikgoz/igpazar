@@ -24,8 +24,8 @@ class JsonParser {
           ['user']['edge_followed_by']['count'];
       name = jsonResponse[i]['entry_data']['ProfilePage'][0]['graphql']['user']
           ['full_name'];
-      biography = jsonResponse[i]['entry_data']['ProfilePage'][0]['graphql']
-          ['user']['biography'];
+      biography = replaceWhitespacesUsingRegex(jsonResponse[i]['entry_data']['ProfilePage'][0]['graphql']
+          ['user']['biography']," ");
 
       var shopImages = jsonResponse[i]['entry_data']['ProfilePage'][0]
           ['graphql']['user']['edge_owner_to_timeline_media']['edges'] as List;
@@ -46,4 +46,17 @@ class JsonParser {
 
     return shopList;
   }
+
+
+  String replaceWhitespacesUsingRegex(String s, String replace) {
+  if (s == null) {
+    return null;
+  }
+
+  // This pattern means "at least one space, or more"
+  // \\s : space
+  // +   : one or more 
+  final pattern = RegExp('\\s+');
+  return s.replaceAll(pattern, replace);
+}
 }
