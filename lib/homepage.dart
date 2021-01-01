@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:igpazar/const.dart';
 import 'package:igpazar/models/shops.dart';
-import 'package:igpazar/services/html_services.dart';
+import 'package:igpazar/navigationbar.dart';
+import 'package:igpazar/services/html_services3.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,79 +15,85 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     JsonParser _jsonService = new JsonParser();
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            Color(0xFFfeda75),
-            Color(0xFFfa7e1e),
-            Color(0xFFd62976),
-            Color(0xFF962fbf),
-            Color(0xFF4f5bd5)
-          ],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        )),
-        child: Column(
-          children: [
-            Container(
-              height: 90,
-              margin: EdgeInsets.all(40.0),
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F5DC),
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Image.asset('images/shopping-cart.png'),
-                          ),
-                          Text(
-                            "İGPAZAR",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 40.0),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text("Anasayfa", style: menuText),
-                            Text("Erkek", style: menuText),
-                            Text("Kadın", style: menuText),
-                            Text("İletişim", style: menuText)
-                          ]),
-                    ),
-                  )
-                ],
-              ),
+      resizeToAvoidBottomPadding: false,
+      body: Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Color(0xFFfeda75),
+              Color(0xFFfa7e1e),
+              Color(0xFFd62976),
+              Color(0xFF962fbf),
+              Color(0xFF4f5bd5)
+            ],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+          )),
+        ),
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: Column(
+              children: [
+                NavigationBarWeb(),
+                SizedBox(
+                  height: 70.0,
+                ),
+
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: buildFutureBuilder(_jsonService)),
+                // Container(
+                //   width: 500.0,
+                //   height: 700.0,
+                //   child: ListView(
+                //     children: [
+                //       homeButton("Giyim"),
+                //       homeButton("Kozmetik"),
+                //       homeButton("Ayakkabı"),
+                //       homeButton("Ayakkabı"),
+                //     ],
+                //   ),
+                // ),
+              ],
             ),
-            SizedBox(
-              height: 200.0,
-            ),
-            Container(height:303.0,child: buildFutureBuilder(_jsonService))
-          ],
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Padding homeButton(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: FlatButton(
+        onPressed: () {},
+        child: Container(
+          child: Center(
+              child: Text(
+            text,
+            style: homePageText,
+          )),
+          height: 180.0,
+          width: 500.0,
+          decoration: BoxDecoration(
+            color: Color(0xFFF5F5DC),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -99,74 +106,47 @@ class _HomePageState extends State<HomePage> {
         List<Shop> _shop = snapshot.data;
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return ListView.builder(
-              
-                scrollDirection: Axis.horizontal,
+            return GridView.builder(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 300,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10),
                 itemCount: _shop.length,
                 itemBuilder: (BuildContext context, index) {
-                  return Container(
-                    margin: EdgeInsets.all(10.0),
-                    width: 250.0,
-                    height: 400.0,
-                    decoration: BoxDecoration(
+                  return InkWell(
+                    onTap: () {},
+                    child: Card(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _shop[index].shopName,
-                          style: TextStyle(fontSize: 25.0),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 7,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                              ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      elevation: 5.0,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            // Text(
+                            //   _shop[index].shopName,
+                            //   textAlign: TextAlign.center,
+                            //   style: TextStyle(
+                            //       fontSize: 20.0, color: Colors.white),
+                            // ),
+                            Expanded(
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(30),
                                 child: Image.network(
                                   _shop[index].shopImage,
-                                  fit: BoxFit.contain,
+                                  fit: BoxFit.fill,
                                 ),
-                              )),
-                        ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(0.0),
-                        //   child: Text(
-                        //     _shop[index].shopBiography,
-                        //     style: TextStyle(fontSize: 17.0),
-                        //     textAlign: TextAlign.center,
-                        //   ),
-                        // )
-                      ],
+                              ),
+                            ),
+                            Text(
+                              _shop[index].shopName,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20.0, color: Colors.black),
+                            ),
+                          ]),
                     ),
                   );
                 });
@@ -175,7 +155,12 @@ class _HomePageState extends State<HomePage> {
             return (Text(
                 "Ekran yüklenirken bir hata oluştu bir daha deneyiniz."));
           case ConnectionState.waiting:
-            return LinearProgressIndicator();
+            return Container(
+                child: Center(
+                    child: Text(
+              "Butikler yükleniyor lütfen bekleyiniz...",
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
+            )));
 
           case ConnectionState.active:
             return Container();
