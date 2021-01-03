@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:igpazar/homepage.dart';
+import 'package:igpazar/views/home/homepage.dart';
 
-import 'const.dart';
+import '../const.dart';
 
 class RouteGenerator {
 

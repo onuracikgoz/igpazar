@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:igpazar/homepage.dart';
+import 'package:igpazar/views/home/homepage.dart';
 
 void main() {
   runApp(MyApp());
