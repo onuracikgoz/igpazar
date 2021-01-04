@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:igpazar/const.dart';
+import 'package:igpazar/widgets/navigation_bar/navbar_item.dart';
+import 'package:igpazar/widgets/navigation_bar/navbar_logo.dart';
 
 class NavigationBarWeb extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class NavigationBarWeb extends StatelessWidget {
       height: 90,
       margin: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color:Colors.white,
+        color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(20.0)),
         boxShadow: [
           BoxShadow(
@@ -29,10 +30,7 @@ class NavigationBarWeb extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Image.asset('images/shopping-cart.png'),
-                  ),
+                  NavbarLogo(),
                   Text(
                     "İGPAZAR",
                     style: TextStyle(color: Colors.black, fontSize: 40.0),
@@ -45,9 +43,13 @@ class NavigationBarWeb extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Text("Anasayfa", style: menuText),
+                NavbarItem(
+                  text: "Anasayfa",
+                ),
                 SizedBox(width: 30.0),
-                Text("İletişim", style: menuText),
+                NavbarItem(
+                  text: "İletişim",
+                ),
                 SizedBox(width: 30.0),
               ]),
             ),

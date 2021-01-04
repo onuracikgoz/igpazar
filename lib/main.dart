@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:igpazar/views/home/homepage.dart';
+import 'package:igpazar/views/home/home_view.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
             bodyText1: TextStyle(fontFamily: 'bebas', color: Colors.white)),
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: HomeView(),
     );
   }
 }

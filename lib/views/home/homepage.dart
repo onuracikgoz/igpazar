@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:igpazar/const.dart';
-import 'package:igpazar/models/shops.dart';
-import 'package:igpazar/navigationbar.dart';
-import 'package:igpazar/services/html_services3.dart';
+import 'package:igpazar/widgets/navigation_bar/navigation_bar_web.dart';
 import 'package:igpazar/widgets/grid_view_builder.dart';
 
 class HomePage extends StatefulWidget {
