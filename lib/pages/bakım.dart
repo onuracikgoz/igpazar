@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:igpazar/services/html_services.dart';
+
 
 class Bakim extends StatelessWidget {
 
@@ -9,8 +9,8 @@ class Bakim extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-JsonParser _htmlparser = new JsonParser();
-_htmlparser.getShops();
+
+
 
     return Center(
       child: Scaffold(

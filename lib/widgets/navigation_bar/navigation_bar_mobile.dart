@@ -5,17 +5,20 @@ class NavigationBarMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80.0,
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-
+          Row(
+            children: [
+              NavbarLogo(),
+              Text(
+                "İGPAZAR",
+                style: TextStyle(
+                    fontSize: 30, fontFamily: "bebas", color: Colors.black),
+              ),
+            ],
           ),
-          NavbarLogo()
         ],
       ),
     );
