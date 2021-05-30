@@ -38,7 +38,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
       builder: (_) => Scaffold(
         appBar: AppBar(
           title: NavigationBarMobile(),
-          backgroundColor: color(context),
+         backgroundColor: color(context),
         ),
         body: Observer(builder: (_) {
           return Container(
@@ -63,7 +63,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                         ),
                       ],
                       borderRadius: BorderRadius.circular(0),
-                      color: color(context),
+             
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -92,13 +92,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                   child: Text(
                                     _serviceStore.discoveryList[index].shopName,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: _modeStore.darkMode
-                                          ? Color(0xFFFFFFFF)
-                                          : Color(0xFF212121),
-                                      fontSize: 20,
-                                      fontFamily: "Roboto",
-                                    ),
+                                  
                                   ),
                                 ),
                               ],

@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
             body: SafeArea(
                           child: Scaffold(
                   resizeToAvoidBottomInset: false,
-                  backgroundColor: Colors.white,
+                
                   body: Container(
                     decoration: BoxDecoration(
                        gradient: LinearGradient(

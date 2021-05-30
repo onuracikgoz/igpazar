@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:igpazar/const.dart';
-import 'package:igpazar/models/shops.dart';
 import 'package:igpazar/store/services.dart';
 import 'package:igpazar/widgets/navigation_bar/navigation_bar_mobile.dart';
-import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:igpazar/extensions.dart';
 
@@ -47,11 +45,13 @@ class _ShopPageState extends State<ShopPage> {
           centerTitle: true,
           title: NavigationBarMobile(),
           backgroundColor: color(context),
+          
         ),
-        backgroundColor: color(context),
+   
         body: Padding(
           padding: const EdgeInsets.all(0.0),
           child: Container(
+            color: color(context),
             width: double.infinity,
             child: SingleChildScrollView(
               child: Column(
@@ -99,6 +99,7 @@ class _ShopPageState extends State<ShopPage> {
                           Text(
                             _service.shop.shopBiography,
                             textAlign: TextAlign.start,
+                            style: TextStyle(fontSize: 10.0.fontSize(context)),
                           ),
                           SizedBox(
                             height: 10,

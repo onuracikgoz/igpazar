@@ -15,7 +15,7 @@ const Color black = Color(0xFF212121);
 
 
 
-Color color (context,{darkModeColor:black, unDarkModeColor:white}) {
+Color color (BuildContext context,{darkModeColor:black, unDarkModeColor:white}) {
     ModeStore _modeStore = Provider.of<ModeStore>(context, listen: false);
 
     return _modeStore.darkMode?darkModeColor:unDarkModeColor;

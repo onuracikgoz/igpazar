@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:igpazar/const.dart';
 
@@ -36,3 +38,16 @@ extension StringExtensions on String {
       ),
     );
   } }
+
+
+
+extension IntExtensions on double {
+  double fontSize(BuildContext context) {
+    if (context.width() <= 320) {
+      return this - 2.0;
+    } else if (context.height() <= 414) {
+      return this + 2.0;
+    } else
+      return this + 4.0;
+  }
+}
