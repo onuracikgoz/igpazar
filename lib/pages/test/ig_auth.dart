@@ -33,7 +33,7 @@ class _IgAuthState extends State<IgAuth> {
     Future.microtask(() async{
       
       
-     url= await Provider.of<ServicesFromNetworkStore>(context, listen: false).igAuth();
+    // url= await Provider.of<ServicesFromNetworkStore>(context, listen: false).igAuth();
     
     
     });

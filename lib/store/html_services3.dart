@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:igpazar/models/shops.dart';
+import 'package:mobx/mobx.dart';
 
 class JsonParser {
   List<dynamic> jsonList = [];
 
-  List<String> imageList = [];
-  List<String> imageListSmall = [];
-  List<Shop> shopList = [];
+  ObservableList<String> imageList = ObservableList();
+  ObservableList<String> imageListSmall = ObservableList();
+  ObservableList<Shop> shopList = ObservableList();
   String imageProfil;
   int follower;
   String name;

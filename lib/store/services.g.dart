@@ -12,15 +12,30 @@ mixin _$ServicesFromNetworkStore on ServicesFromNetworkBase, Store {
   final _$_shopListAtom = Atom(name: 'ServicesFromNetworkBase._shopList');
 
   @override
-  List<Shop> get _shopList {
+  ObservableList<Shop> get _shopList {
     _$_shopListAtom.reportRead();
     return super._shopList;
   }
 
   @override
-  set _shopList(List<Shop> value) {
+  set _shopList(ObservableList<Shop> value) {
     _$_shopListAtom.reportWrite(value, super._shopList, () {
       super._shopList = value;
+    });
+  }
+
+  final _$_shopAtom = Atom(name: 'ServicesFromNetworkBase._shop');
+
+  @override
+  Shop get _shop {
+    _$_shopAtom.reportRead();
+    return super._shop;
+  }
+
+  @override
+  set _shop(Shop value) {
+    _$_shopAtom.reportWrite(value, super._shop, () {
+      super._shop = value;
     });
   }
 
@@ -28,13 +43,13 @@ mixin _$ServicesFromNetworkStore on ServicesFromNetworkBase, Store {
       Atom(name: 'ServicesFromNetworkBase._discoveryList');
 
   @override
-  List<Discovery> get _discoveryList {
+  ObservableList<Discovery> get _discoveryList {
     _$_discoveryListAtom.reportRead();
     return super._discoveryList;
   }
 
   @override
-  set _discoveryList(List<Discovery> value) {
+  set _discoveryList(ObservableList<Discovery> value) {
     _$_discoveryListAtom.reportWrite(value, super._discoveryList, () {
       super._discoveryList = value;
     });
@@ -45,6 +60,20 @@ mixin _$ServicesFromNetworkStore on ServicesFromNetworkBase, Store {
   @override
   Future<List<Shop>> getShops(dynamic context) {
     return _$getShopsAsyncAction.run(() => super.getShops(context));
+  }
+
+  final _$ServicesFromNetworkBaseActionController =
+      ActionController(name: 'ServicesFromNetworkBase');
+
+  @override
+  dynamic getShopById(dynamic id) {
+    final _$actionInfo = _$ServicesFromNetworkBaseActionController.startAction(
+        name: 'ServicesFromNetworkBase.getShopById');
+    try {
+      return super.getShopById(id);
+    } finally {
+      _$ServicesFromNetworkBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

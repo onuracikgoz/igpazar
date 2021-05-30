@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NavbarLogo extends StatelessWidget {
  
@@ -7,7 +8,7 @@ class NavbarLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
-      child: Image.asset('images/shopping-cart.png',height: 40,width: 40,),
+      child: SvgPicture.asset('assets/icons/shopping-cart.svg',height: 40,width: 40,),
     );
   }
 }

@@ -12,52 +12,56 @@ class ServicesFromNetworkStore = ServicesFromNetworkBase
 
 abstract class ServicesFromNetworkBase with Store {
   @observable
-  List<Shop> _shopList = new ObservableList();
+  ObservableList<Shop> _shopList = new ObservableList();
 
-  List<dynamic> jsonList = [];
+  ObservableList<dynamic> jsonList = ObservableList();
 
-  List<String> imageList = [];
-  List<String> imageListSmall = [];
+
+@observable
+Shop _shop = Shop();
+
+
+
+
+  List<String> _imageList =[];
+  List<String> _imageListSmall =[];
   @observable
-List<Discovery> _discoveryList = new ObservableList();
-
-
+  ObservableList<Discovery> _discoveryList = new ObservableList();
 
   String imageProfil;
   int follower;
   String name;
   String biography;
-  var url;
-  var urlParseHtml;
-  var jsonString;
   var jsonResponse;
   var shopImages;
-  List<String> htmllist = [];
-  Shop shop = new Shop();
-
-  List<Shop> get shopList => _shopList;
-   List<Discovery> get discoveryList => _discoveryList;
+  String id;
+ 
+  Shop get shop => _shop;
+  ObservableList<Shop> get shopList => _shopList;
+  ObservableList<Discovery> get discoveryList => _discoveryList;
 
   Dio _dio = Dio();
 
-  
-
   @action
   Future<List<Shop>> getShops(context) async {
-
-        _dio.options.headers['Access-Control-Allow-Origin'] = '*';
+    _dio.options.headers['Access-Control-Allow-Origin'] = '*';
     for (var itemUrl in Shops.shopUrlList) {
+
+        _imageList.clear();
+      _imageListSmall.clear();
       print(itemUrl.url);
 
       //response = await http.get(Uri.parse(itemUrl.url));
       // response = await http.get(Uri.https(itemUrl.url+"?__a=1"));
 
-      var response = await _dio.get(itemUrl.url,);
+      var response = await _dio.get(
+        itemUrl.url,
+      );
 
       if (response.statusCode == 200) {
         //print(response.body);
         jsonResponse = response.data;
-
+        id = jsonResponse['graphql']['user']['id'];
         imageProfil = jsonResponse['graphql']['user']['profile_pic_url_hd'];
         follower = jsonResponse['graphql']['user']['edge_followed_by']['count'];
         name = jsonResponse['graphql']['user']['username'];
@@ -65,58 +69,57 @@ List<Discovery> _discoveryList = new ObservableList();
         shopImages = jsonResponse['graphql']['user']
             ['edge_owner_to_timeline_media']['edges'] as List;
 
-
         shopImages.forEach((element) {
-          imageList.add(element['node']['display_url']);
-
-        
-
-          _discoveryList.add(Discovery(shopImage:imageProfil,shopName: name,shopImagesLarge:element['node']['display_url']  ));
+          _imageList.add(element['node']['display_url']);
+         _imageListSmall.add(element['node']['thumbnail_resources'][2]['src']);
 
 
-          imageListSmall.add(element['node']['thumbnail_resources'][2]['src']);
+         print(element['node']['thumbnail_resources'][2]['src']);
+          _discoveryList.add(Discovery(
+              id: id,
+              shopImage: imageProfil,
+              shopName: name,
+              shopImagesLarge: element['node']['display_url']));
+       
         });
 
-
-        
-
         _shopList.add(Shop(
+            id: id,
             shopName: name,
             follower: follower,
             shopBiography: biography,
             shopFollower: follower.toString(),
             shopImage: imageProfil,
-            shopImagesLarge: imageList,
-            shopImagesSmall: imageListSmall));
+            shopImagesLarge: _imageList,
+            shopImagesSmall: _imageListSmall));
       }
+               print("id");
+               print(id);
 
-      print(imageList.length.toString());
-      print(imageListSmall.length.toString());
+   //   print(imageList.length.toString());
+      print("imageListSmall.length.toString()");
+      print(_imageListSmall.length.toString());
 
-  imageList.clear();
-   imageListSmall.clear();
-
+    
     }
 
-   _discoveryList.shuffle();
+    //_discoveryList.shuffle();
 
     return _shopList;
+
+
+
   }
 
-  Future igAuth() async {
-    Dio _dio = Dio();
-    var data = {
-      "client_id": "1177288659409487",
-      "redirect_uri": "https://httpstat.us/200",
-      "scope": "user_profile,user_media",
-      "response_type": "code"
-    };
 
-    Response _res = await _dio.get("https://api.instagram.com/oauth/authorize",
-        queryParameters: data);
+@action
+getShopById (id){
 
-    print(_res.data);
 
-    return _res.data;
-  }
+  _shop =
+      _shopList.firstWhere((element) => element.id == id);
+
+}
+
+
 }

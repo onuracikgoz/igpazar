@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
+import 'package:mobx/mobx.dart';
+
 class Shop {
+  String id;
   String shopName;
   String shopImage;
   String shopFollower;
@@ -9,7 +13,9 @@ class Shop {
   
 
   Shop(
-      {this.shopName,
+      {
+        this.id,
+        this.shopName,
       this.shopImage,
       this.shopFollower,
       this.shopBiography,

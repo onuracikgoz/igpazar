@@ -1,4 +1,5 @@
 class Discovery {
+  String id;
   String shopName;
   String shopImage;
   String shopImagesSmall;
@@ -6,7 +7,9 @@ class Discovery {
   
 
   Discovery(
-      {this.shopName,
+      {
+        this.id,
+        this.shopName,
       this.shopImage,
       this.shopImagesSmall,
       this.shopImagesLarge,
